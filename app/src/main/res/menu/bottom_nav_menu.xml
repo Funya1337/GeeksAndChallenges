@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/bottom_nav_dashboard"
+        android:title="Dashboard"
+        android:icon="@drawable/ic_baseline_apps_24"
+        app:cnb_backgroundColor="@color/colorPrimary"/>
+
+    <item
+        android:id="@+id/bottom_nav_game"
+        android:title="Game"
+        android:icon="@drawable/ic_baseline_videogame_asset_24"
+        app:cnb_backgroundColor="@color/colorPrimary"/>
+
+    <item
+        android:id="@+id/bottom_nav_editor"
+        android:title="Editor"
+        android:icon="@drawable/ic_baseline_edit_location_24"
+        app:cnb_backgroundColor="@color/colorPrimary"/>
+</menu>
