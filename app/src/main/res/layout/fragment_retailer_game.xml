@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.RetailerGameFragment">
+    android:background="@color/colorBlack">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <TextView
+    <com.example.proj123.views.SnakeView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="game fragment"
-        android:textSize="50sp"/>
+        android:id="@+id/snakeView"
+        android:layout_marginBottom="150dp"/>
 
-</FrameLayout>
+    <Button
+        android:id="@+id/redirectBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
+        android:text="run game"/>
+
+</RelativeLayout>

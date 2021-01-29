@@ -9,7 +9,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
 import com.example.proj123.R;
+import com.example.proj123.classes.GetDataFromEditor;
 
 import me.testica.codeeditor.Editor;
 import me.testica.codeeditor.SyntaxHighlightRule;
@@ -18,7 +21,18 @@ public class RetailerEditorFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_retailer_editor, container, false);
-        Editor editor = rootView.findViewById(R.id.editor);
+        final Editor editor = rootView.findViewById(R.id.editor);
+        Button sendDataBtn = rootView.findViewById(R.id.sendDataBtn);
+
+        final GetDataFromEditor getDataFromEditor = new GetDataFromEditor();
+
+        sendDataBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getDataFromEditor.setCode(editor.getText());
+            }
+        });
+
         editor.setText("Hello Android");
         editor.setSyntaxHighlightRules(
                 new SyntaxHighlightRule("[0-9]*", "#00838f"),
