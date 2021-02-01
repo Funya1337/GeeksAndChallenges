@@ -16,10 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.proj123.Activities.MainActivity;
 import com.example.proj123.R;
 import com.example.proj123.classes.GetDataFromEditor;
 import com.example.proj123.engine.GameEngine;
 import com.example.proj123.views.SnakeView;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class RetailerGameFragment extends Fragment {
 
@@ -31,12 +35,12 @@ public class RetailerGameFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_retailer_game, container, false);
         Button redirectBtn = rootView.findViewById(R.id.redirectBtn);
 
-        final GetDataFromEditor getDataFromEditor = new GetDataFromEditor();
+        final String code = ((MainActivity) Objects.requireNonNull(getActivity())).getCode();
 
         redirectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Log", getDataFromEditor.getCode());
+                movePixel(code);
             }
         });
 
@@ -46,5 +50,18 @@ public class RetailerGameFragment extends Fragment {
         snakeView.setSnakeViewMap(gameEngine.getMap());
         snakeView.invalidate();
         return rootView;
+    }
+    public void movePixel(String code)
+    {
+        code = code.replaceAll("([\\r\\n])", "");
+        String[] splited = code.split(";");
+        String[] dictionary = {"step", "turn", "stop"};
+        for (int i = 0; i < splited.length; i++)
+        {
+            if (splited[i].split(" ")[0].equals(dictionary[0]))
+            {
+                snakeView.setData(Integer.parseInt(splited[i].split(" ")[1]));
+            }
+        }
     }
 }

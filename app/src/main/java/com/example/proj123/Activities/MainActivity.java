@@ -4,17 +4,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
 
 import com.example.proj123.Fragments.RetailerDashboardFragment;
 import com.example.proj123.Fragments.RetailerEditorFragment;
 import com.example.proj123.Fragments.RetailerGameFragment;
 import com.example.proj123.R;
+import com.example.proj123.classes.GetDataFromEditor;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
-public class MainActivity extends AppCompatActivity {
+import io.github.rosemoe.editor.widget.CodeEditor;
+
+public class MainActivity extends AppCompatActivity implements RetailerEditorFragment.OnCallbackReceived {
 
     ChipNavigationBar chipNavigationBar;
+
+    GetDataFromEditor getDataFromEditor = new GetDataFromEditor();
+
+    String code = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,5 +54,24 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
             }
         });
+    }
+
+    @Override
+    public void Update(String data) {
+        Log.d("Log", data);
+        CodeHandleClassCaller(data);
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void CodeHandleClassCaller(String data)
+    {
+        setCode(data);
     }
 }
