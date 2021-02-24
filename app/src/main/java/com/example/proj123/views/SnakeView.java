@@ -12,11 +12,13 @@ import androidx.annotation.Nullable;
 
 import com.example.proj123.enums.TileType;
 
+import java.util.Random;
+
 public class SnakeView extends View {
     private Paint mPaint = new Paint();
     private TileType snakeViewMap[][];
 
-    Canvas canvas = new Canvas();
+    boolean checker = false;
 
     private int data;
 
@@ -34,17 +36,7 @@ public class SnakeView extends View {
 
     public void setData(int data) {
         this.data = data;
-        drawCircle(canvas);
-    }
-
-    public void drawCircle(Canvas canvas)
-    {
-        float tileSizeX = canvas.getWidth() / snakeViewMap.length;
-        float tileSizeY = canvas.getHeight() / snakeViewMap[0].length;
-        float circleSize = Math.min(tileSizeX, tileSizeY) / 2;
-        Log.d("Log", "WE SET THE VALUE");
-        mPaint.setColor(Color.RED);
-        canvas.drawCircle(data * tileSizeX + tileSizeX / 2f + circleSize / 2, data * tileSizeY + tileSizeY / 2f + circleSize / 2, circleSize, mPaint);
+        checker = true;
     }
 
     @Override
@@ -65,9 +57,17 @@ public class SnakeView extends View {
                     }
                     canvas.drawCircle(x * tileSizeX + tileSizeX / 2f + circleSize / 2, y * tileSizeY + tileSizeY / 2f + circleSize / 2, circleSize, mPaint);
                 }
-                mPaint.setColor(Color.RED);
-                canvas.drawCircle(5 * tileSizeX + tileSizeX / 2f + circleSize / 2, 5 * tileSizeY + tileSizeY / 2f + circleSize / 2, circleSize, mPaint);
-            }
+                if (checker)
+                {
+                    mPaint.setColor(Color.RED);
+                    canvas.drawCircle(data * tileSizeX + tileSizeX / 2f + circleSize / 2, data * tileSizeY + tileSizeY / 2f + circleSize / 2, circleSize, mPaint);
+                }
+                else
+                {
+                    mPaint.setColor(Color.RED);
+                    canvas.drawCircle(6 * tileSizeX + tileSizeX / 2f + circleSize / 2, 8 * tileSizeY + tileSizeY / 2f + circleSize / 2, circleSize, mPaint);
+                }
+             }
         }
     }
 }

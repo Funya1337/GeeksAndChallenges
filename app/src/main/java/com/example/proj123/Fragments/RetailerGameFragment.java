@@ -61,6 +61,8 @@ public class RetailerGameFragment extends Fragment {
             if (splited[i].split(" ")[0].equals(dictionary[0]))
             {
                 snakeView.setData(Integer.parseInt(splited[i].split(" ")[1]));
+                snakeView.setSnakeViewMap(gameEngine.getMap());
+                snakeView.invalidate();
             }
         }
     }
