@@ -77,7 +77,14 @@ public class RetailerGameFragment extends Fragment {
     {
         if (GlobalClass.splited[0].split(" ")[0].equals(dictionary[0]))
         {
-            snakeView.makeStep(Integer.parseInt(GlobalClass.splited[0].split(" ")[1]), GlobalClass.getCode());
+            snakeView.makeStep(Integer.parseInt(GlobalClass.splited[0].split(" ")[1]));
+            snakeView.setSnakeViewMap(gameEngine.getMap());
+            snakeView.invalidate();
+            GlobalClass.splited = Arrays.copyOfRange(GlobalClass.splited, 1, GlobalClass.splited.length);
+        }
+        else if (GlobalClass.splited[0].split(" ")[0].equals(dictionary[1]))
+        {
+            snakeView.makeTurn(GlobalClass.splited[0].split(" ")[1]);
             snakeView.setSnakeViewMap(gameEngine.getMap());
             snakeView.invalidate();
             GlobalClass.splited = Arrays.copyOfRange(GlobalClass.splited, 1, GlobalClass.splited.length);

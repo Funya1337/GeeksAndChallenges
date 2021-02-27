@@ -9,7 +9,7 @@ public class GlobalClass extends Application {
 
     public static String[] splited;
 
-    public static String[] dictionary = {"step", "turn", "stop"};
+    public static String[] dictionary = {"step", "turn"};
 
     public static String getCode() {
         return code;

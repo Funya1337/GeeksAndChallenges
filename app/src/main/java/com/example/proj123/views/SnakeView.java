@@ -30,7 +30,9 @@ public class SnakeView extends View {
 
     public int num = 0;
 
-    public String code;
+    public int x = 1;
+
+    public String side = "";
 
     public int checker = 0;
 
@@ -42,11 +44,16 @@ public class SnakeView extends View {
         this.snakeViewMap = map;
     }
 
-    public void makeStep(int num, String code)
+    public void makeStep(int num)
     {
         this.num = num;
-        this.code = code;
-        checker = 1;
+        checker = x;
+    }
+
+    public void makeTurn(String side)
+    {
+        this.side = side;
+        checker = 4;
     }
 
     @Override
@@ -73,9 +80,34 @@ public class SnakeView extends View {
                 mPaint.setColor(Color.RED);
                 canvas.drawCircle(currentLocationX * tileSizeX + tileSizeX / 2f + circleSize / 2, (currentLocationY - num) * tileSizeY + tileSizeY / 2f + circleSize / 2, circleSize, mPaint);
                 currentLocationY = currentLocationY - num;
-                System.out.println(currentLocationY);
-                System.out.println(Arrays.toString(GlobalClass.splited));
                 RetailerGameFragment.movePixel();
+            }
+            else if (checker == 2)
+            {
+                mPaint.setColor(Color.RED);
+                canvas.drawCircle((currentLocationX - num) * tileSizeX + tileSizeX / 2f + circleSize / 2, currentLocationY * tileSizeY + tileSizeY / 2f + circleSize / 2, circleSize, mPaint);
+                currentLocationX = currentLocationX - num;
+                RetailerGameFragment.movePixel();
+            }
+            else if (checker == 3)
+            {
+                mPaint.setColor(Color.RED);
+                canvas.drawCircle((currentLocationX + num) * tileSizeX + tileSizeX / 2f + circleSize / 2, currentLocationY * tileSizeY + tileSizeY / 2f + circleSize / 2, circleSize, mPaint);
+                currentLocationX = currentLocationX + num;
+                RetailerGameFragment.movePixel();
+            }
+            else if (checker == 4)
+            {
+                if (side.equals("right"))
+                {
+                    x = 3;
+                    RetailerGameFragment.movePixel();
+                }
+                else
+                {
+                    x = 2;
+                    RetailerGameFragment.movePixel();
+                }
             }
             else
             {
