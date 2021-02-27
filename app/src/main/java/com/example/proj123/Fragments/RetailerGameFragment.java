@@ -48,8 +48,6 @@ public class RetailerGameFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_retailer_game, container, false);
         Button redirectBtn = rootView.findViewById(R.id.redirectBtn);
 
-        final GlobalClass globalClass = (GlobalClass) Objects.requireNonNull(getActivity()).getApplicationContext();
-
         redirectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
