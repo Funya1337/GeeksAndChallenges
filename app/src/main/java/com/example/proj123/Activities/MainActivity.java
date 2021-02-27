@@ -14,15 +14,18 @@ import com.example.proj123.R;
 import com.example.proj123.classes.GetDataFromEditor;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
-import io.github.rosemoe.editor.widget.CodeEditor;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity implements RetailerEditorFragment.OnCallbackReceived {
+import io.github.rosemoe.editor.widget.CodeEditor;
+import me.testica.codeeditor.Editor;
+
+public class MainActivity extends AppCompatActivity {
 
     ChipNavigationBar chipNavigationBar;
-
-    GetDataFromEditor getDataFromEditor = new GetDataFromEditor();
-
-    String code = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,24 +57,5 @@ public class MainActivity extends AppCompatActivity implements RetailerEditorFra
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
             }
         });
-    }
-
-    @Override
-    public void Update(String data) {
-        Log.d("Log", data);
-        CodeHandleClassCaller(data);
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public void CodeHandleClassCaller(String data)
-    {
-        setCode(data);
     }
 }

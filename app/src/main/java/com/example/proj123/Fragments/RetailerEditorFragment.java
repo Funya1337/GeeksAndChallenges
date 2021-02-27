@@ -1,7 +1,6 @@
 package com.example.proj123.Fragments;
-
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -13,37 +12,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
-
-import com.example.proj123.Activities.MainActivity;
 import com.example.proj123.R;
 import com.example.proj123.classes.GetDataFromEditor;
+import com.example.proj123.classes.GlobalClass;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.util.Objects;
 
 import me.testica.codeeditor.Editor;
 import me.testica.codeeditor.SyntaxHighlightRule;
 
 public class RetailerEditorFragment extends Fragment {
-
-    private final String filename = "example.txt";
-    private final String filepath = "MyFileStorage";
-    File myExternalFile;
-    String myData = "";
-
-    OnCallbackReceived mCallback;
-
-    public interface OnCallbackReceived {
-        public void Update(String data);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,6 +36,7 @@ public class RetailerEditorFragment extends Fragment {
         Button sendDataBtn = rootView.findViewById(R.id.sendDataBtn);
         Button loadDataBtn = rootView.findViewById(R.id.loadDataBtn);
 
+        final GlobalClass globalClass = (GlobalClass) Objects.requireNonNull(getActivity()).getApplicationContext();
 
         final GetDataFromEditor getDataFromEditor = new GetDataFromEditor();
 
@@ -62,6 +47,7 @@ public class RetailerEditorFragment extends Fragment {
                 if (getDataFromEditor.checkSyntax(editor.getText()))
                 {
                     save(editor);
+                    globalClass.setCode(editor.getText());
                 }
                 else
                 {
@@ -89,7 +75,6 @@ public class RetailerEditorFragment extends Fragment {
 
     public void save(Editor editor)
     {
-        mCallback.Update(editor.getText());
         if (!editor.getText().isEmpty())
         {
             File file = new File(getContext().getFilesDir(), "text");
@@ -103,7 +88,7 @@ public class RetailerEditorFragment extends Fragment {
                 writer.append(editor.getText());
                 writer.flush();
                 writer.close();
-                Toast.makeText(getContext(), "Saved your text", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Your code saved!", Toast.LENGTH_LONG).show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -130,13 +115,5 @@ public class RetailerEditorFragment extends Fragment {
         }
         String result = text.toString();
         editor.setText(result);
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        try {
-            mCallback = (OnCallbackReceived) getActivity();
-        } catch (ClassCastException ignored) {}
     }
 }

@@ -9,18 +9,30 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentManager;
 
+import com.example.proj123.Activities.MainActivity;
+import com.example.proj123.Fragments.RetailerGameFragment;
+import com.example.proj123.R;
+import com.example.proj123.classes.GlobalClass;
 import com.example.proj123.enums.TileType;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class SnakeView extends View {
     private Paint mPaint = new Paint();
     private TileType snakeViewMap[][];
 
-    boolean checker = false;
+    private int currentLocationX = 6;
 
-    private int data;
+    private int currentLocationY = 8;
+
+    public int num = 0;
+
+    public String code;
+
+    public int checker = 0;
 
     public SnakeView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -30,13 +42,11 @@ public class SnakeView extends View {
         this.snakeViewMap = map;
     }
 
-    public int getData() {
-        return data;
-    }
-
-    public void setData(int data) {
-        this.data = data;
-        checker = true;
+    public void makeStep(int num, String code)
+    {
+        this.num = num;
+        this.code = code;
+        checker = 1;
     }
 
     @Override
@@ -52,22 +62,26 @@ public class SnakeView extends View {
                 for (int y = 0; y < snakeViewMap[x].length; y++) {
                     switch (snakeViewMap[x][y]) {
                         case Wall:
-                            mPaint.setColor(Color.rgb(	105,105,105));
+                            mPaint.setColor(Color.rgb(105,105,105));
                             break;
                     }
                     canvas.drawCircle(x * tileSizeX + tileSizeX / 2f + circleSize / 2, y * tileSizeY + tileSizeY / 2f + circleSize / 2, circleSize, mPaint);
                 }
-                if (checker)
-                {
-                    mPaint.setColor(Color.RED);
-                    canvas.drawCircle(data * tileSizeX + tileSizeX / 2f + circleSize / 2, data * tileSizeY + tileSizeY / 2f + circleSize / 2, circleSize, mPaint);
-                }
-                else
-                {
-                    mPaint.setColor(Color.RED);
-                    canvas.drawCircle(6 * tileSizeX + tileSizeX / 2f + circleSize / 2, 8 * tileSizeY + tileSizeY / 2f + circleSize / 2, circleSize, mPaint);
-                }
-             }
+            }
+            if (checker == 1)
+            {
+                mPaint.setColor(Color.RED);
+                canvas.drawCircle(currentLocationX * tileSizeX + tileSizeX / 2f + circleSize / 2, (currentLocationY - num) * tileSizeY + tileSizeY / 2f + circleSize / 2, circleSize, mPaint);
+                currentLocationY = currentLocationY - num;
+                System.out.println(currentLocationY);
+                System.out.println(Arrays.toString(GlobalClass.splited));
+                RetailerGameFragment.movePixel();
+            }
+            else
+            {
+                mPaint.setColor(Color.RED);
+                canvas.drawCircle(currentLocationX * tileSizeX + tileSizeX / 2f + circleSize / 2, currentLocationY * tileSizeY + tileSizeY / 2f + circleSize / 2, circleSize, mPaint);
+            }
         }
     }
 }
