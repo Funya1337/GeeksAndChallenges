@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.proj123.Activities.MainActivity;
 import com.example.proj123.Fragments.RetailerGameFragment;
@@ -22,6 +23,7 @@ import com.example.proj123.enums.TileType;
 
 import java.util.Arrays;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class SnakeView extends View {
     private Paint mPaint = new Paint();
@@ -149,7 +151,7 @@ public class SnakeView extends View {
     {
         if (currentLocationX == foodCoordX && currentLocationY == foodCoordY)
         {
-            System.out.println("YOU WON");
+            RetailerGameFragment.openWinDialog();
         }
     }
 }

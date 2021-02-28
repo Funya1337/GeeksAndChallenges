@@ -1,10 +1,13 @@
 package com.example.proj123.Fragments;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import java.util.Arrays;
@@ -15,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.proj123.Activities.MainActivity;
@@ -42,11 +46,14 @@ public class RetailerGameFragment extends Fragment {
 
     private static GameEngine gameEngine;
     private static SnakeView snakeView;
+    private static Dialog dialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_retailer_game, container, false);
         Button redirectBtn = rootView.findViewById(R.id.redirectBtn);
+
+        dialog = new Dialog(getContext());
 
         redirectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,5 +94,28 @@ public class RetailerGameFragment extends Fragment {
             snakeView.invalidate();
             GlobalClass.splited = Arrays.copyOfRange(GlobalClass.splited, 1, GlobalClass.splited.length);
         }
+    }
+    public static void openWinDialog()
+    {
+        dialog.setContentView(R.layout.win_layout_dialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        ImageView imageViewClose = dialog.findViewById(R.id.imageViewClose);
+        Button button = dialog.findViewById(R.id.button);
+
+        imageViewClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 }
